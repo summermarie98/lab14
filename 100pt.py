@@ -33,9 +33,22 @@ class MyApp:
 		self.button1 = Button(self.myContainer1)
 		self.button1.configure(text="Up", background= "green")
 		self.button1.grid(row=0,column=0)
-					
+		
+		self.button2 = Button(self.myContainer1)
+		self.button2.configure(text="Left", background= "purple")
+		self.button2.grid(row=0,column=0)
+		self.button2.bind("<Button-1>", self.button2Click)
+		
+		self.button3 = Button(self.myContainer1)
+		self.button3.configure(text="Down", background= "pink")
+		self.button3.grid(row=0,column=0)
+		self.button3.bind("<Button-1>", self.button3Click)
+		
+		self.button4 = Button(self.myContainer1)
+		self.button4.configure(text="Right", background= "blue")
+		self.button4.grid(row=0,column=0)	
 		# "Bind" an action to the first button												
-		self.button1.bind("<Button-1>", self.button1Click)
+		self.button4.bind("<Button-1>", self.button4Click)
 
 		  
 		# This creates the drawpad - no need to change this 
@@ -45,9 +58,10 @@ class MyApp:
 		
 	def button1Click(self, event):   
                 # "global" makes sure that we can access our oval and our drawpad
-		global oval
+		global player
 		global drawpad
-                x1,y1,x2,y2 = drawpad.coords(player)
+                drawpad.move(player,0,-20)
+		
 		# Get the coords of our target
 
 
@@ -64,11 +78,10 @@ class MyApp:
                 global oval
 		global drawpad
                 x1,y1,x2,y2 = drawpad.coords(player)
+                if x1 == 0 or x2>=drawpad.winfo_width() or y1==0 or y2>=drawpad.winfo_height():
 
                 # Do your if statement - remember to return True if successful!
-                
-	    
-		
+            
 myapp = MyApp(root)
 
 root.mainloop()
